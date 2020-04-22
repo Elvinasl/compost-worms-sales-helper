@@ -2,6 +2,8 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const validationException = require('./exceptions/validationException');
+
 
 const productsController = require('./controllers/products/products');
 
@@ -18,5 +20,18 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/products', productsController);
+
+
+app.use(function handleValidationError(error, request, response, next) {
+    if (error instanceof validationException) {
+        return response
+            .status(400)
+            .json({
+                httpStatus: 400,
+                message: error.message,
+            });
+    }
+    next(error);
+});
 
 module.exports = app;

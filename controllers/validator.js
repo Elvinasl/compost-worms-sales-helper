@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const validationException = require('../exceptions/validationException');
 
 const validator = (dto) => {
     return (req, res, next) => {
@@ -10,10 +11,7 @@ const validator = (dto) => {
         } else {
             const { details } = error;
             const message = details.map(i => i.message).join(',');
-
-            res.status(400).json({
-                error: message
-            })
+            throw new validationException(message);
         }
     }
 }
