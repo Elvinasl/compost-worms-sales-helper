@@ -1,4 +1,3 @@
-const express = require('express');
 const validationException = require('./validationException');
 
 const exceptionHandler = function (err, req, res, next) {
