@@ -3,18 +3,20 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 
-const indexRouter = require('./routes/index');
-const productsRouter = require('./routes/products');
+const productsController = require('./controllers/products/products');
 
 const app = express();
+const bodyParser = require("body-parser");
+const cors = require('cors');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
+app.use(bodyParser.json());
 
-app.use('/', indexRouter);
-app.use('/products', productsRouter);
+app.use('/products', productsController);
 
 module.exports = app;
