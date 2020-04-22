@@ -14,7 +14,7 @@ router.get('/:id', function(req, res) {
   res.send(`Product id: ${req.params.id}`);
 });
 
-router.post('/', validator(productDTO, 'body'), function(req, res) {
+router.post('/', validator(productDTO), function(req, res) {
   res.json(req.body);
 });
 
