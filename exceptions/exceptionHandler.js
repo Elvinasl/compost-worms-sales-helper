@@ -1,6 +1,6 @@
 const validationException = require('./validationException');
 
-const exceptionHandler = function (err, req, res, next) {
+const exceptionHandler = (err, req, res, next) => {
     console.error(err.stack)
     if (err instanceof validationException) {
         return res
