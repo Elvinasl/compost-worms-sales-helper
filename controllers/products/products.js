@@ -6,17 +6,18 @@ const validator = require('./../validator');
 const productService = require('./../services/productService');
 
 router.get('/', (req, res) => {
+  // TODO: make it dto
   res.json({
-    products: productService.getAll()
+    products: productService.getAllProducts()
   });
 });
 
 router.get('/:id', (req, res) => {
-  res.json(productService.getById(req.params.id));
+  res.json(productService.getProductById(req.params.id));
 });
 
 router.post('/', validator(productDTO), (req, res) => {
-  res.json(productService.create(req.body));
+  res.json(productService.createProduct(req.body));
 });
 
 module.exports = router;

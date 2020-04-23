@@ -1,22 +1,22 @@
 // TODO: change with DB
 const products = [];
 
-const getAll = () => {
+const getAllProducts = () => {
     return products;
 }
 
-const getById = (id) => {
+const getProductById = (id) => {
     // TODO: get implementation by id
     return products[0];
 }
 
-const create = (productDTO) => {
+const createProduct = (productDTO) => {
     products.push(productDTO);
-    return getAll();
+    return getAllProducts();
 }
 
 module.exports = {
-    getAll: getAll,
-    create: create,
-    getById: getById,
+    getAllProducts: getAllProducts,
+    createProduct: createProduct,
+    getProductById: getProductById,
 };
