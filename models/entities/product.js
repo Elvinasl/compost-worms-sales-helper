@@ -1,18 +1,24 @@
 module.exports = function (sequelize, DataTypes) {
   return sequelize.define('product', {
     id: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       primaryKey: true,
-      defaultValue: DataTypes.UUIDV4,
+      autoIncrement: true,
     },
     amount: {
-      type: DataTypes.NUMBER,
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     phone: {
       type: DataTypes.STRING,
     },
+    // Timestamps
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP(3)'),
+    },
   }, {
+    timestamps: false,
     // options
   });
 };
