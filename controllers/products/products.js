@@ -1,15 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
-const productDTO = require('./dtos/productDTO');
-const validator = require('./../validator');
-const productService = require('./../services/productService');
+const productDTO = require('../../models/dtos/products/productDTO');
+const validator = require('../../models/dtos/validator');
+const productService = require('../../services/productService');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   // TODO: make it dto
-  res.json({
-    products: productService.getAllProducts()
-  });
+  productService.getAllProducts().then(products => {
+    return res.json({
+      products,
+    });
+  })
+
 });
 
 router.get('/:id', (req, res) => {
@@ -17,7 +20,11 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', validator(productDTO), (req, res) => {
-  res.json(productService.createProduct(req.body));
+  productService.createProduct(req.body)
+      .then(result => {
+          return res.json(result);
+      })
+
 });
 
 module.exports = router;

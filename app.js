@@ -1,26 +1,22 @@
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const exceptionHandler = require('./exceptions/exceptionHandler');
-
-const productsController = require('./controllers/products/products');
+const express = require('express'),
+    config = require('./config/config'),
+    db = require('./models/entities'),
+    productsController = require('./controllers/products/products'),
+    exceptionHandler = require('./exceptions/exceptionHandler');
 
 const app = express();
-const bodyParser = require("body-parser");
-const cors = require('cors');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
-app.use(bodyParser.json());
+require('./config/express')(app);
 
 app.use('/products', productsController);
 
 // keep it last
 app.use(exceptionHandler);
+
+db.sequelize
+    .sync()
+    .catch(function (e) {
+        throw new Error(e);
+    });
 
 module.exports = app;

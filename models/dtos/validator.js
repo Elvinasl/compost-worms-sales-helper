@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const validationException = require('../exceptions/validationException');
+const validationException = require('../../exceptions/validationException');
 
 const validator = (dto) => {
     return (req, res, next) => {
