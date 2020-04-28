@@ -1,27 +1,20 @@
 const productRepository = require('../repositories/productRepository');
 
-const getAllProducts = () => {
-    productRepository.getAllProducts().then(products => {
-        return products;
+const getAllProducts = () => productRepository.getAllProducts().then((products) => products);
+
+const getProductById = (id) => productRepository.getProductById(id).then((product) => product);
+
+const createProduct = (productDTO) =>
+// TODO: map dto
+  productRepository.createProduct({ amount: 22, lastName: 'Doe' })
+    .then(() => productRepository.getAllProducts()).catch((err) => {
+      console.log(err);
+      throw err;
     });
-}
 
-const getProductById = (id) => {
-    return productRepository.getProductById(id).then(product => {
-        return product;
-    })
-}
-
-const createProduct = (productDTO) => {
-    // TODO: map dto
-    return productRepository.createProduct({ amount: 22, lastName: "Doe" })
-        // .then(() => {
-        //     return productRepository.getAllProducts();
-        // });
-}
 
 module.exports = {
-    getAllProducts: getAllProducts,
-    createProduct: createProduct,
-    getProductById: getProductById,
+  getAllProducts,
+  createProduct,
+  getProductById,
 };

@@ -1,8 +1,8 @@
-const express = require('express'),
-    config = require('./config/config'),
-    db = require('./models/entities'),
-    productsController = require('./controllers/products/products'),
-    exceptionHandler = require('./exceptions/exceptionHandler');
+const express = require('express');
+const config = require('./config/config');
+const db = require('./models/entities');
+const productsController = require('./controllers/products/products');
+const exceptionHandler = require('./exceptions/exceptionHandler');
 
 const app = express();
 
@@ -14,9 +14,9 @@ app.use('/products', productsController);
 app.use(exceptionHandler);
 
 db.sequelize
-    .sync()
-    .catch(function (e) {
-        throw new Error(e);
-    });
+  .sync()
+  .catch((e) => {
+    throw new Error(e);
+  });
 
 module.exports = app;

@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 
 const productDTO = require('../../models/dtos/products/productDTO');
@@ -7,12 +8,10 @@ const productService = require('../../services/productService');
 
 router.get('/', async (req, res) => {
   // TODO: make it dto
-  productService.getAllProducts().then(products => {
-    return res.json({
+  productService.getAllProducts()
+    .then((products) => res.json({
       products,
-    });
-  })
-
+    }));
 });
 
 router.get('/:id', (req, res) => {
@@ -21,10 +20,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', validator(productDTO), (req, res) => {
   productService.createProduct(req.body)
-      .then(result => {
-          return res.json(result);
-      })
-
+    .then((result) => res.json(result));
 });
 
 module.exports = router;
